@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class CategoryController {
 
     //at runtime a type of categoryService is injected
@@ -25,7 +26,7 @@ public class CategoryController {
 
     //teh get mapping fetches the categories from post method and displays them
     //@GetMapping("/api/public/categories")
-    @RequestMapping(value = "/api/public/categories",method = RequestMethod.GET)
+    @RequestMapping(value = "/public/categories",method = RequestMethod.GET)
     public ResponseEntity<List<Category>> getAllCategories(){
         List<Category> Categories = categoryService.getAllCategories();
         return new ResponseEntity<>(Categories,HttpStatus.OK);
@@ -34,12 +35,12 @@ public class CategoryController {
     //we have been able to add new categories in our api with the help of post mapping
     //we made use of post to help us create new resources on the server
     //@PostMapping("/api/public/categories")
-    @RequestMapping(value = "/api/public/categories",method = RequestMethod.POST)
+    @RequestMapping(value = "/public/categories",method = RequestMethod.POST)
     public ResponseEntity<String> createCategory(@RequestBody Category category){
         categoryService.createCategory(category);
         return new ResponseEntity<>("Category added successfully",HttpStatus.CREATED);
     }
-    @DeleteMapping("/api/admin/categories/{categoryId}")
+    @DeleteMapping("/admin/categories/{categoryId}")
     public ResponseEntity<String> deleteCategory(@PathVariable Long categoryId){
         try {
             String status = categoryService.deleteCategory(categoryId);
@@ -48,7 +49,7 @@ public class CategoryController {
             return new ResponseEntity<>(e.getReason(),e.getStatusCode());
         }
     }
-    @PutMapping("/api/public/categories/{categoryId}")
+    @PutMapping("/public/categories/{categoryId}")
     public ResponseEntity<String> updateCategory(@RequestBody Category category ,
                                                  @PathVariable Long categoryId){
         try {
