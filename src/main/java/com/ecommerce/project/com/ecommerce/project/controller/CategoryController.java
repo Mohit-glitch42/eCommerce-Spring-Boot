@@ -24,7 +24,8 @@ public class CategoryController {
 //    }
 
     //teh get mapping fetches the categories from post method and displays them
-    @GetMapping("/api/public/categories")
+    //@GetMapping("/api/public/categories")
+    @RequestMapping(value = "/api/public/categories",method = RequestMethod.GET)
     public ResponseEntity<List<Category>> getAllCategories(){
         List<Category> Categories = categoryService.getAllCategories();
         return new ResponseEntity<>(Categories,HttpStatus.OK);
@@ -32,7 +33,8 @@ public class CategoryController {
 
     //we have been able to add new categories in our api with the help of post mapping
     //we made use of post to help us create new resources on the server
-    @PostMapping("/api/public/categories")
+    //@PostMapping("/api/public/categories")
+    @RequestMapping(value = "/api/public/categories",method = RequestMethod.POST)
     public ResponseEntity<String> createCategory(@RequestBody Category category){
         categoryService.createCategory(category);
         return new ResponseEntity<>("Category added successfully",HttpStatus.CREATED);
